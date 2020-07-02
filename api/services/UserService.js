@@ -23,23 +23,17 @@ const UserService = {
   }),
 
   create: (user) => new Promise((resolve, reject) => {
-    db.query('INSERT INTO users (name, lastname) VALUES (?, ?)', [user.name, user.lastname], 
+    db.query('INSERT INTO users (name, lastname) VALUES (?, ?)', [user.name, user.lastName], 
       (err, res) => {
+        console.log(res);
         if (err) reject(err);
-        else {
-          db.query('SELECT LAST_INSERT_ID()', 
-            (err2, res2) => {
-              if (err2) reject(err2);
-              else resolve(res2);
-            }
-          );
-        };
+        else resolve(res.insertId);
       }
     );
   }),
 
   update: (user) => new Promise((resolve, reject) => {
-    db.query('UPDATE users SET name = ?, lastname = ? WHERE id_user = ?', [user.name, user.lastname, user.id],
+    db.query('UPDATE users SET name = ?, lastname = ? WHERE id_user = ?', [user.name, user.lastName, user.id],
       (err, res) => {
         if (err) reject(err);
         else resolve(res);
