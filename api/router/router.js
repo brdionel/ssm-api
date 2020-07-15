@@ -2,6 +2,7 @@
 
 const SubjectController = require('../controllers/SubjectController');
 const CourseController = require('../controllers/CourseController');
+const TeacherController = require('../controllers/TeacherController');
 const StudentController = require('../controllers/StudentController');
 
 const router = (app) => {
@@ -25,6 +26,16 @@ const router = (app) => {
     .get(CourseController.getById)
     .put(CourseController.update)
     .delete(CourseController.delete);
+
+  /* TEACHERS */
+  app.route('/teachers')
+    .get(TeacherController.getAll)
+    .post(TeacherController.create);
+
+  app.route('/teachers/:id')
+    .get(TeacherController.getById)
+    .put(TeacherController.update)
+    .delete(TeacherController.delete);
 
   /* STUDENTS */
   app.route('/students')
