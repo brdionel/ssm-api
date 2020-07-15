@@ -18,10 +18,13 @@ const router = (app) => {
 
   /* COURSES */
   app.route('/courses')
-    .get(CourseController.getAll);
+    .get(CourseController.getAll)
+    .post(CourseController.create);
 
   app.route('/courses/:id')
-    .get(CourseController.getById);
+    .get(CourseController.getById)
+    .put(CourseController.update)
+    .delete(CourseController.delete);
 
 };
 

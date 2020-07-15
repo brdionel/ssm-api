@@ -86,6 +86,4 @@ const SubjectController = {
 
 };
 
-
-
 module.exports = SubjectController;
