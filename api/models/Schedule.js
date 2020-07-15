@@ -8,7 +8,7 @@ class Schedule {
     subject;
     teacher;
     students;
-    constructor(id, time, day, course, subject, teacher){
+    constructor(time, day, course, subject, teacher, id=null){
         this.id = id;
         this.time = time;
         this.day = day;
