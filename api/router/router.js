@@ -38,6 +38,9 @@ const router = (app) => {
     .put(ScheduleController.update)
     .delete(ScheduleController.delete);
 
+  app.route('/week-days')
+    .get(ScheduleController.getWeekDays);
+
   /* TEACHERS */
   app.route('/teachers')
     .get(TeacherController.getAll)

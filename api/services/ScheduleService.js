@@ -1,12 +1,18 @@
 'use strict';
 const db = require('../config/db');
+const CourseService = require('./CourseService');
+const SubjectService = require('./SubjectService');
+const TeacherService = require('./TeacherService');
 
-const scheduleService = {
+const ScheduleService = {
 
   getAll: () => new Promise((resolve, reject) => {
     db.query('SELECT * FROM schedules', (err, res) => {
       if (err) reject(err);
-      else resolve(res);
+      else {
+        res = res.map(item => ScheduleService.getFullItem(item));
+        Promise.all(res).then(values => resolve(values));
+      }
     });
   }),
   
@@ -15,7 +21,11 @@ const scheduleService = {
       (err, res) => {
         if (err) reject(err);
         else {
-          if (res.length) resolve(res[0]);
+          if (res.length) {
+            res.forEach(item => {
+              ScheduleService.getFullItem(item).then(item => resolve(item));
+            });
+          }
           else resolve(false);
         }
       }
@@ -57,6 +67,27 @@ const scheduleService = {
       else resolve(res);
     });
   }),
+  
+  getWeekDayById: (id) => new Promise((resolve, reject) => {
+    db.query('SELECT * FROM week_days WHERE id_week_day = ?', [id], (err, res) => {
+      if (err) reject(err);
+      else if (res.length) resolve(res[0]);
+      else resolve(false);
+    });
+  }),
+
+  getFullItem: (item) => Promise.all([
+      TeacherService.getById(item.id_teacher),
+      CourseService.getById(item.id_course),
+      SubjectService.getById(item.id_subject),
+      ScheduleService.getWeekDayById(item.id_week_day),
+    ]).then(([ teacher, course, subject, week_day]) => {
+      item.teacher = teacher;
+      item.course = course;
+      item.subject = subject;
+      item.week_day = week_day;
+      return {...item};
+    }),
 };
 
-module.exports = scheduleService;
+module.exports = ScheduleService;

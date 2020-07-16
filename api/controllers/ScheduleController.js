@@ -87,12 +87,15 @@ const scheduleController = {
     }
   },
 
-  getWeekDays: () => new Promise((resolve, reject) => {
-    db.query('SELECT * FROM week_days', (err, res) => {
-      if (err) reject(err);
-      else resolve(res);
-    });
-  }),
+  getWeekDays: (req, res) => {
+    scheduleService.getWeekDays()
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.status(500).json({ error: true, message: 'Could not obtain week days' });
+      });
+  },
 };
 
 module.exports = scheduleController;
