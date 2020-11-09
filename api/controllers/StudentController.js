@@ -37,9 +37,7 @@ const StudentController = {
     if (req.body.name) {
       const newStudent = new Student(null, req.body.name, req.body.lastName, req.body.file);
       studentService.create(newStudent)
-        .then(result => {
-          res.json({ success: true, message: 'Student successfully created' });
-        })
+        .then(result => res.json({ success: true, message: 'Estudiante creado' }))
         .catch(err => {
           res.status(500).json({ error: true, message: 'Could not create the student' });
         });
@@ -68,7 +66,6 @@ const StudentController = {
 
   delete: (req, res) => {
     const id = +req.params.id;
-
     if (!isNaN(id)) {
         studentService.delete(id)
         .then(result => {
@@ -85,6 +82,5 @@ const StudentController = {
   }
 
 };
-
 
 module.exports = StudentController;

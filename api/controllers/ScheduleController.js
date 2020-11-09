@@ -51,6 +51,7 @@ const scheduleController = {
   },
   
   update: (req, res) => {
+
     const id = +req.params.id;
     if (!isNaN(id) && req.body.time) {
       const {time, day, course, subject, teacher} = req.body;

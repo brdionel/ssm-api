@@ -54,7 +54,9 @@ const StudentService = {
     db.query('DELETE FROM students WHERE id_student = ?', [id], 
       (err, res) => {
         if (err) reject(err);
-        else resolve(res);
+        else {
+          resolve(res);
+        }
       }
     );
   }),

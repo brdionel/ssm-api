@@ -42,7 +42,7 @@ const ScheduleService = {
     );
   }),
 
- update: (schedule) => new Promise((resolve, reject) => { 
+  update: (schedule) => new Promise((resolve, reject) => { 
     const {time, day, course, subject, teacher, id} = schedule;
     db.query('UPDATE schedules SET time = ?, id_week_day = ?, id_course = ?, id_subject = ?, id_teacher = ? WHERE id_schedule = ?', [time, day, course, subject, teacher, id],
       (err, res) => {
