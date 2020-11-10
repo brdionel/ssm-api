@@ -1,4 +1,4 @@
-#School Schedule Manager (API)
+# School Schedule Manager (API)
 
 API REST que permite administrar horarios de cursos. Da soporte a la aplicacion [SSM](https://github.com/brdionel/ssm)
 
